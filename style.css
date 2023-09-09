@@ -46,7 +46,7 @@ header nav img {
 }
 header nav p {
   padding-bottom: 1em;
-  cursor: pointer;
+  cursor: default;
 }
 header nav p .span1 {
   font-weight: 300;
