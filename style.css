@@ -607,6 +607,13 @@ body.contact-form-page .desktop-tagline span {
     background-size: cover, cover;
   }
 
+  body:not(.service-page):not(.contact-page) {
+    background-image: linear-gradient(180deg, rgba(2, 2, 0, 0.97), rgba(2, 2, 0, 0.9)), url("Lines.svg");
+    background-repeat: no-repeat, no-repeat;
+    background-position: center top, center top;
+    background-size: cover, cover;
+  }
+
   header {
     position: static;
     width: 100vw;
