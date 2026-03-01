@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+            rel="stylesheet">
+        <title>Contact Us | Roy Marketing</title>
+    </head>
+    <body class="contact-page contact-form-page" id="top">
+        <header>
+            <nav>
+                <div class="mobile-topbar">
+                    <a href="index.html" class="logo-link" aria-label="Back to home">
+                        <img src="logo.png" alt="Roy Marketing logo">
+                    </a>
+                    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
+                        <span class="menu-toggle-line"></span>
+                        <span class="menu-toggle-line"></span>
+                        <span class="menu-toggle-line"></span>
+                        <span class="sr-only">Open menu</span>
+                    </button>
+                </div>
+                <div class="mobile-intro">
+                    <p class="mobile-tagline">
+                        <span>Let's talk</span>
+                        <span>about your next move.</span>
+                    </p>
+                </div>
+
+                <div class="mobile-menu-overlay" id="mobile-menu">
+                    <div class="nav-links">
+                        <a href="marketing.html">MARKETING</a>
+                        <a href="coordination.html">COORDINATION</a>
+                        <a href="logistics.html">LOGISTICS</a>
+                        <a class="lang-menu-link" href="contact-fr.html" lang="fr">FR</a>
+                        <a class="menu-only-link is-active" href="contact.html">CONTACT US <span>></span></a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="contact-main">
+            <section class="desktop-intro" aria-label="Contact introduction">
+                <div class="desktop-intro-card">
+                    <p class="desktop-tagline">
+                        <span>Let's talk</span>
+                        <span>about your next move.</span>
+                    </p>
+                </div>
+            </section>
+            <section class="contact-shell">
+                <div class="contact-card">
+                    <h1 id="contact">Contact Us</h1>
+                    <p class="contact-copy">Tell us what you need, and we'll get back to you quickly.</p>
+
+                    <p class="contact-success" id="contact-success" hidden>
+                        Your email draft is ready in your default mail app.
+                    </p>
+
+                    <form class="contact-form" id="contact-form">
+                        <label for="name">Full name</label>
+                        <input id="name" name="name" type="text" autocomplete="name" required>
+
+                        <label for="email">Email</label>
+                        <input id="email" name="email" type="email" autocomplete="email" required>
+
+                        <label for="company">Company (optional)</label>
+                        <input id="company" name="company" type="text" autocomplete="organization">
+
+                        <label for="service">Service needed</label>
+                        <select id="service" name="service" required>
+                            <option value disabled selected>Select a service</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Project Coordination">Project Coordination</option>
+                            <option value="Logistics">Logistics</option>
+                            <option value="Multiple">Multiple services</option>
+                        </select>
+
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="6" required></textarea>
+
+                        <button type="submit">Draft email</button>
+                    </form>
+
+                </div>
+            </section>
+            <div id="page-bottom" aria-hidden="true"></div>
+        </main>
+
+        <script>
+  (function () {
+    var isMobile = window.matchMedia("(max-width: 800px)").matches;
+    if (isMobile) {
+      var menuToggle = document.querySelector(".menu-toggle");
+      var menuOverlay = document.getElementById("mobile-menu");
+      if (menuToggle && menuOverlay) {
+        var overlayLinks = menuOverlay.querySelectorAll("a");
+
+        var setMenuState = function (isOpen) {
+          document.body.classList.toggle("menu-open", isOpen);
+          menuToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        };
+
+        menuToggle.addEventListener("click", function () {
+          var nextState = menuToggle.getAttribute("aria-expanded") !== "true";
+          setMenuState(nextState);
+        });
+
+        overlayLinks.forEach(function (link) {
+          link.addEventListener("click", function () {
+            setMenuState(false);
+          });
+        });
+
+        menuOverlay.addEventListener("click", function (event) {
+          if (event.target === menuOverlay) {
+            setMenuState(false);
+          }
+        });
+      }
+    }
+
+    var form = document.getElementById("contact-form");
+    if (form) {
+      var fields = form.querySelectorAll("input[required], select[required], textarea[required]");
+
+      var validateField = function (field) {
+        var valid = field.checkValidity();
+        field.classList.toggle("field-invalid", !valid);
+        field.setAttribute("aria-invalid", valid ? "false" : "true");
+        return valid;
+      };
+
+      fields.forEach(function (field) {
+        field.addEventListener("blur", function () {
+          validateField(field);
+        });
+        field.addEventListener("input", function () {
+          if (field.classList.contains("field-invalid")) {
+            validateField(field);
+          }
+        });
+        field.addEventListener("change", function () {
+          if (field.classList.contains("field-invalid")) {
+            validateField(field);
+          }
+        });
+      });
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        var allValid = true;
+        fields.forEach(function (field) {
+          if (!validateField(field)) allValid = false;
+        });
+        if (!allValid) {
+          var firstInvalid = form.querySelector(".field-invalid");
+          if (firstInvalid) firstInvalid.focus();
+          return;
+        }
+
+        var name = (form.querySelector("#name").value || "").trim();
+        var email = (form.querySelector("#email").value || "").trim();
+        var company = (form.querySelector("#company").value || "").trim();
+        var service = (form.querySelector("#service").value || "").trim();
+        var message = (form.querySelector("#message").value || "").trim();
+
+        var subject = "New inquiry from " + name + " (" + service + ")";
+        var lines = [
+          "Name: " + name,
+          "Email: " + email,
+          "Company: " + (company || "N/A"),
+          "Service: " + service,
+          "",
+          "Message:",
+          message
+        ];
+        var body = lines.join("\n");
+        var mailtoUrl =
+          "mailto:olivier@roymktg.com?subject=" +
+          encodeURIComponent(subject) +
+          "&body=" +
+          encodeURIComponent(body);
+
+        window.location.href = mailtoUrl;
+
+        var success = document.getElementById("contact-success");
+        if (success) success.hidden = false;
+      });
+    }
+  })();
+</script>
+    </body>
+</html>
